@@ -1,29 +1,47 @@
-import { Switch, Route } from 'react-router';
+import { lazy, Suspense } from 'react';
+import { Switch, Route, Redirect } from 'react-router';
 import Container from './components/Container';
 import NavBar from './components/NavBar/NavBar';
-import HomePage from './pages/HomePage';
-import MoviesPage from './pages/MoviesPage';
+
+const HomePage = lazy(() =>
+  import('./pages/HomePage' /* webpackChunkName: "HomePage" */),
+);
+
+const MoviesPage = lazy(() =>
+  import('./pages/MoviesPage' /* webpackChunkName: "MoviesPage" */),
+);
+const MovieDetailPage = lazy(() =>
+  import('./pages/MovieDetailsPage' /* webpackChunkName: "MovieDetailPage" */),
+);
 
 function App() {
   return (
     <Container>
       <NavBar />
 
-      <Switch>
-        <Route path="/movies">
-          <MoviesPage />
-        </Route>
+      <Suspense fallback={<h2>Loading...</h2>}>
 
-        <Route>
-          <HomePage />
-        </Route>
-      </Switch>
+        <Switch>
+
+          <Route path="/" exact>
+            <HomePage />
+          </Route>
+
+          <Route path="/movies" exact>
+            <MoviesPage />
+          </Route>
+
+          <Route path="/movies/:movieId">
+            <MovieDetailPage />
+          </Route>
+
+          <Redirect to="/" />
+          
+        </Switch>
+
+      </Suspense>
     </Container>
   );
-}
+};
 
 export default App;
-
-// <Route path="/" exact>
-//   <HomePage />
-// </Route>

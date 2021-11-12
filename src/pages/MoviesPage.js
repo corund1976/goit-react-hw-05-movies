@@ -1,55 +1,42 @@
-// import PageHeading from '../components/PageHeading/PageHeading';
+import { useState, useEffect } from 'react';
+import { useLocation } from 'react-router';
+import queryString from 'query-string';
+import * as moviesAPI from '../services/movies-api';
+import Section from '../components/Section';
+import SearchMovie from '../components/SearchMovie';
+import MoviesList from '../components/MoviesList';
 
-export default function MoviesPage() {
+function MoviesPage() {
+  const [movies, setMovies] = useState(null);
+
+  const location = useLocation();
+  const parsedQueryString = queryString.parse(location.search); // = query: "police"
+  const query = parsedQueryString.query; // = police
+
+  useEffect(() => {
+    if (query) {
+      moviesAPI
+        .fetchMovies(query)
+        .then(({ results }) => setMovies(results))
+        .catch(error => console.log(error));
+    }
+  }, [query]);
+
+  useEffect(() => {
+    if (location.search === '') {
+      setMovies([]);
+    }
+  }, [location]);
+
   return (
-    <>
-      {/* <PageHeading text="Добро пожаловать" /> */}
+    <Section>
 
-      <p>
-        MOVIES
-      </p>
-
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex vel velit
-        nihil illo est! Quos cum rerum dolores voluptates odio iste est nam
-        excepturi placeat eligendi voluptatibus a illo eos ipsam, necessitatibus
-        quo at quae pariatur et asperiores odit! Quasi sunt odit omnis at
-        deserunt placeat ipsa earum dignissimos magni voluptatum quisquam veniam
-        libero qui fugit accusantium cum ratione, facilis tempore in!
-        Voluptates, minus nesciunt sed optio voluptate et quae accusamus est
-        eos, dolorum quibusdam dolorem debitis perferendis voluptas rem quos
-        eius ab, commodi cumque dolor. Repellendus porro impedit, enim
-        temporibus quibusdam eum natus corporis id? Ducimus fugit consequatur
-        consequuntur.
-      </p>
-
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex vel velit
-        nihil illo est! Quos cum rerum dolores voluptates odio iste est nam
-        excepturi placeat eligendi voluptatibus a illo eos ipsam, necessitatibus
-        quo at quae pariatur et asperiores odit! Quasi sunt odit omnis at
-        deserunt placeat ipsa earum dignissimos magni voluptatum quisquam veniam
-        libero qui fugit accusantium cum ratione, facilis tempore in!
-        Voluptates, minus nesciunt sed optio voluptate et quae accusamus est
-        eos, dolorum quibusdam dolorem debitis perferendis voluptas rem quos
-        eius ab, commodi cumque dolor. Repellendus porro impedit, enim
-        temporibus quibusdam eum natus corporis id? Ducimus fugit consequatur
-        consequuntur.
-      </p>
-
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex vel velit
-        nihil illo est! Quos cum rerum dolores voluptates odio iste est nam
-        excepturi placeat eligendi voluptatibus a illo eos ipsam, necessitatibus
-        quo at quae pariatur et asperiores odit! Quasi sunt odit omnis at
-        deserunt placeat ipsa earum dignissimos magni voluptatum quisquam veniam
-        libero qui fugit accusantium cum ratione, facilis tempore in!
-        Voluptates, minus nesciunt sed optio voluptate et quae accusamus est
-        eos, dolorum quibusdam dolorem debitis perferendis voluptas rem quos
-        eius ab, commodi cumque dolor. Repellendus porro impedit, enim
-        temporibus quibusdam eum natus corporis id? Ducimus fugit consequatur
-        consequuntur.
-      </p>
-    </>
+      <SearchMovie />
+    
+      <MoviesList movies={movies} />
+      
+    </Section>
   );
-}
+};
+
+export default MoviesPage;
