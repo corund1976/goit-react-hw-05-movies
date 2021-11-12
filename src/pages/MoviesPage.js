@@ -32,9 +32,10 @@ function MoviesPage() {
     <Section>
 
       <SearchMovie />
-    
-      <MoviesList movies={movies} />
-      
+
+      {movies && (
+        <MoviesList movies={movies} />
+      )}
     </Section>
   );
 };

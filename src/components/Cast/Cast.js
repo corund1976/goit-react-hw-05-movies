@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react';
-// import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import * as movieAPI from '../../services/movies-api';
 import s from './Cast.module.css';
 import defaultImage from '../../images/defaultImage.jpg';
 
-function Cast({ movieId }) {
-  // const location = useLocation();
-  // const { movieId } = useParams();
-  // console.log(useParams()); 
+function Cast() {
+  const location = useLocation();
+  const { movieId } = useParams();
+  console.log(location);
+  console.log(useParams()); 
   const [cast, setCast] = useState([]);
 
   useEffect(() => {
@@ -19,7 +20,8 @@ function Cast({ movieId }) {
 
   return (
      <ul>
-      {cast && cast.map(({ id, profile_path, name, character }) => {
+      {cast &&
+        cast.map(({ id, profile_path, name, character }) => {
         return (
           <li key={id} className={s.item}>
             <img
@@ -35,8 +37,8 @@ function Cast({ movieId }) {
             <p className={s.name}>{name}</p>
             <p className={s.name}>Character: {character}</p>
           </li>
-        );
-      })}
+        )})
+      }
     </ul>
   );
 };

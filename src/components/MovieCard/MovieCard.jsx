@@ -24,7 +24,7 @@ function MovieCard({ movie }) {
 
   const history = useHistory();
   const location = useLocation();
-  const { url } = useRouteMatch();
+  const { url, path } = useRouteMatch();
 
   const release_year = new Date(release_date).getFullYear();
 
@@ -97,12 +97,12 @@ function MovieCard({ movie }) {
       <Suspense fallback={<h2>Loading in movie card...</h2>}>
         <Switch>
           
-          <Route exact path={`${url}/cast`}>
-            <Cast movieId={movie.id} />
+          <Route exact path={`${path}/cast`}>
+            <Cast />
           </Route>
 
-          <Route exact path={`${url}/reviews`}>
-            <Reviews movieId={movie.id} />
+          <Route exact path={`${path}/reviews`}>
+            <Reviews />
           </Route>
 
         </Switch>
