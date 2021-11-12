@@ -1,4 +1,4 @@
-import { Link, useLocation } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import s from './MoviesList.modules.css';
 
@@ -9,10 +9,12 @@ function MoviesList({ movies }) {
     <ul>
       {movies &&
         movies.map(movie => (
-          <li className={s.link} activeClassName={s.link_active} key={movie.id}>
-            <Link to={{ pathname: `/movies/${movie.id}`, state: { from: location } }}>
+          <li key={movie.id}>
+            <NavLink to={{ pathname: `/movies/${movie.id}`, state: { from: location } }}
+              className={s.link}
+              activeClassName={s.link_active} >
               {movie.title}
-            </Link>
+            </NavLink>
           </li>
         ))
       }
