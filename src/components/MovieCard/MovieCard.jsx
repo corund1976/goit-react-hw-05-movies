@@ -1,15 +1,7 @@
-import { lazy, Suspense } from 'react';
-import { NavLink, Route, Switch, useRouteMatch, useHistory, useLocation } from 'react-router-dom';
+import { NavLink, useRouteMatch, useHistory, useLocation } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import s from './MovieCard.module.css';
 import defaultImage from '../../images/defaultImage.jpg';
-
-const Cast = lazy(() =>
-  import('../../components/Cast/Cast' /* webpackChunkName: "Cast" */),
-);
-const Reviews = lazy(() =>
-  import('../../components/Reviews/Reviews' /* webpackChunkName: "Reviews" */),
-);
 
 function MovieCard({ movie }) {
   const {
@@ -24,7 +16,7 @@ function MovieCard({ movie }) {
 
   const history = useHistory();
   const location = useLocation();
-  const { url, path } = useRouteMatch();
+  const { url } = useRouteMatch();
 
   const release_year = new Date(release_date).getFullYear();
 
@@ -93,21 +85,6 @@ function MovieCard({ movie }) {
           </li>
         </ul>
       </div>
-      <hr />
-      <Suspense fallback={<h2>Loading in movie card...</h2>}>
-        <Switch>
-          
-          <Route exact path={`${path}/cast`}>
-            <Cast />
-          </Route>
-
-          <Route exact path={`${path}/reviews`}>
-            <Reviews />
-          </Route>
-
-        </Switch>
-      </Suspense>
-
     </>
   );
 };

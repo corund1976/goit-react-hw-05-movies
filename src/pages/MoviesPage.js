@@ -30,9 +30,8 @@ function MoviesPage() {
 
   return (
     <Section>
-
       <SearchMovie />
-
+      
       {movies && (
         <MoviesList movies={movies} />
       )}

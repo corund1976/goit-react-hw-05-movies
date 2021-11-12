@@ -1,7 +1,5 @@
 import { useState } from 'react';
 import { useHistory } from 'react-router';
-
-
 import s from './SearchMovie.module.css';
 
 function SearchMovie() {
