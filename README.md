@@ -1,70 +1,87 @@
-# Getting Started with Create React App
+\***\*\*\*\*\***\*\***\*\*\*\*\*** М А Р Ш Р У Т И З А Ц И Я \***\*\*\*\*\*\*\***\*\***\*\*\*\*\*\*\***
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Концепция SPA (Single Page Application) и CSR (Client Side Rendering).
+HTML5 History API
+Компонент BrowserRouter
 
-## Available Scripts
+Меню навигации
+==Компонент Link
+==Компонент NavLink
+==Оформление и проп exact
 
-In the project directory, you can run:
+Компонент Route
+Обработка 404
+Компонент Switch
+Динамические URL-параметры
+==Делаем вложенную навигацию c useRouteMatch
+==Свойство match.url
+==Маршрут одной книги с useParams
 
-### `yarn start`
+Вложенные маршруты
+==Вложенная навигация по авторам
+==Вложенный маршрут автора с match.path
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Маршруты
+/ - приветственная страница
+/authors - все авторы
+/authors/:authorId - автор и его книги
+/books - все книги
+/books/:bookId - одна книга
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+\***\*\*\*\*\***\*\***\*\*\*\*\*** Р А З Д Е Л Е Н И Е К О Д А \***\*\*\*\*\*\*\***\*\***\*\*\*\*\*\*\***
 
-### `yarn test`
+Параметры адресной строки c useLocation
+Программная навигация с useHistory
+Повторное использование кода
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Разделение кода
+==Вкладка Coverage
+==Динамический импорт модулей
+====React.lazy()
+====Webpack magic comments import('путь' /_ webpackChunkName: "имя" _/)
+====React.Suspense и fallback
 
-### `yarn build`
+Допмат
+==Предварительная загрузка ссылок https://web.dev/quicklink/
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+\***\*\*\*\*\***\*\***\*\*\*\*\*** Д О П О Л Н И Т Е Л Ь Н О Е З А Н Я Т И Е \***\*\*\*\*\*\*\***\*\***\*\*\*\*\*\*\***
+Свойство location.state
+Слаги
+==https://dev.to/fayazara/this-free-tools-for-developers-are-45p3
+==slugify https://www.npmjs.com/package/slugify
+==regexp101 https://regex101.com/
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+На каникулы
+==React Query https://react-query.tanstack.com/
+====Ищите туториалы по react query v3
+==React Hook Form https://react-hook-form.com/
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+============================== L A Z Y =====================================
+Заменяем статический импорт на динамический с помощью "обертки" в Реакте.
+Функция lazy работает так => когда маршрут совпадает с URL в адресной строке,
+эта функция вызывает анонимку, а та в сою очередь вызывает импорт. Импорт возвращает
+промис с дефолтным экспортом из указанного модуля, где будет наш код JS с "страницей".
+Экспорт должен быть только дефолтный и это должен быть только компонент!!! Например,
+const HomeView = lazy(() => import('./views/HomeView.js'));
+В нашем случае берем дефолтный экспорт с index.js в папке каждого компонента
 
-### `yarn eject`
+=============== W E B P A C K M A G I C C O M M E N T S ===================
+Именованные "чанки". Когда мы делаем динамический импорт, WebPack даёт файлам номера -
+от 1 до бесконечности.Чтобы имена файлов, в которые разбивались чанки, имели логически
+понятные имена, при импорте в комментарии нужно добавить желаемое название. Например,
+import('путь' /_ webpackChunkName: "имя" _/) или
+import('./views/HomeView.js' /_ webpackChunkName: "home-view" _/)
+Прежде всего это будет удобно ПОТОМ - при дебаге, для отлова ошибок.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+=========================== S U S P E N S E ===================================
+В будущем у Реакта будет "Suspense API" для асинхронного рендера компонентов.
+React lazy и react Suspense - это его маленькие части, которые УЖЕ работают.
+Пока "ленивый" компонент находится в состоянии загрузки, необходимо поставить
+прелоадер или превью этого компонента. Делается это с помомщью встроенного в Реакт
+компонента Suspense. Он должен оборачить то место, где используется "ленивый" код.
+В нашем случае - это целиком Switch, т.к. в нём практически всё - "ленивое".
+Suspense имеет обязательный проп - fallback. В него передаем любой КОМПОНЕНТ,
+который будет рендериться во время загрузки асинхронного кода.
+Не ссылку на компонент, а именно JSX !!! Например,
+<Suspense fallback={<Loader />} или
+<Suspense fallback={<h1>ЗАГРУЖАЕМ...</h1>}
