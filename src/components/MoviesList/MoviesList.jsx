@@ -10,7 +10,11 @@ function MoviesList({ movies }) {
       {movies &&
         movies.map(movie => (
           <li key={movie.id}>
-            <NavLink to={{ pathname: `/movies/${movie.id}`, state: { from: location } }}
+            <NavLink
+              to={{
+                pathname: `/movies/${movie.id}`,
+                state: { from: location }
+              }}
               className={s.link}
               activeClassName={s.link_active} >
               {movie.title}

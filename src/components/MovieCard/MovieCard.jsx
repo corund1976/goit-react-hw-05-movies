@@ -21,7 +21,7 @@ function MovieCard({ movie }) {
   const release_year = new Date(release_date).getFullYear();
 
   const handleGoBack = () => {
-    history.push(location.state?.from);
+    history.push(location?.state?.from ?? '/');
   };
 
   return (
